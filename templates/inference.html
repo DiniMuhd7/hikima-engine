@@ -1,0 +1,115 @@
+<!doctype html>
+<head>
+    <title>Hikima - Speech Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<html>
+   <body>
+     <main>
+
+        <div class="px-4 py-3 my-2 text-center">
+<!--
+            <img src="{{ url_for('static', filename='images/hero.png') }}" alt="Azure Logo" width="400" height="350""/>
+-->
+
+<p class="fs-5">Create a Speech from Document</p>
+
+<!--<label for="tx-area" class="form-label fw-bold fs-5">Enter your text:</label>-->
+            <form method="post" enctype="multipart/form-data" action="/inferencex">
+<!-- Scale factor -->
+<div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+	<p class="fs-5">Scale Factor</p> <input type="range" name="durationx" label="Duration Scale" min="0" max="10" value="5" step="1">
+	<p class="fs-5">Pause Duration</p> <input type="range" name="pausex" label="Pause Duration" min="0" max="10" value="5" step="1">
+	<p class="fs-5">Pitch Variance</p> <input type="range" name="pitchx" label="Pitch Variance" min="0" max="10" value="5" step="1">
+	<p class="fs-5">Energy Variance</p> <input type="range" name="energyx" label="Energy Variance" min="0" max="10" value="5" step="1">
+</div>
+            <select id="tagd" class="form-control" name="tagd">
+              <option value="p">Select Your Language</option>
+              <option value="ha">Hausa</option>
+              <option value="sw">Swahili</option>
+              <option value="yo">Yoruba (unavailable)</option>
+              <option value="lg">Lingala (unavailable)</option>
+              <option value="ig">Igbo (unavailable)</option>
+              <option value="ff">Fulfulde (unavailable)</option>
+              <!-- Add more options here as needed -->
+            </select>
+	<div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+        <p class="fs-5">Document</p> <input type="file" class="form-control" name="docfile" accept=".txt, .pdf, .doc, .docx">
+	<p class="fs-5">Prosody</p> <input type="file" class="form-control" name="wavfilex" accept=".wav, .mp3">
+	<p class="fs-5"> </p>
+	<input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="Generate Speech">
+</div>
+    </form>
+    
+    <p class="fs-6 text-primary">{{ message }}</p>
+
+    {% if audio_visible %}
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+    <audio controls>
+        <source src="{{ audio_file }}" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+   </div>
+   {% endif %}
+
+	<p class="fs-5"> </p>
+            <p class="fs-5">Create a Speech from Text Box</p>
+
+            <!--<label for="tx-area" class="form-label fw-bold fs-5">Enter your text:</label>-->
+            <form method="post" action="{{url_for('inference')}}">
+            <select id="tag" class="form-control" name="tag">
+              <option value="p">Select Your Language</option>
+              <option value="ha">Hausa</option>
+              <option value="sw">Swahili</option>
+              <option value="yo">Yoruba (unavailable)</option>
+              <option value="lg">Lingala (unavailable)</option>
+              <option value="ig">Igbo (unavailable)</option>
+              <option value="ff">Fulfulde (unavailable)</option>
+              <!-- Add more options here as needed -->
+            </select>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+              <textarea id="syn" class="form-control" name="syn" rows="5" cols="50" placeholder="Write what you want the system to read in your selected langauge. Please make use of punctuations where necessary..."></textarea>
+            </div>
+
+<div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+	<p class="fs-5">Prosody</p> <input type="file" class="form-control" name="wavfile" accept=".wav, .mp3">
+</div>
+
+<p class="fs-5"> </p>
+
+<!-- Scale factor -->
+<div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+	<p class="fs-5">Scale Factor</p> <input type="range" name="duration" label="Duration Scale" min="0" max="10" value="5" step="1">
+	<p class="fs-5">Pause Duration</p> <input type="range" name="pause" label="Pause Duration" min="0" max="10" value="5" step="1">
+	<p class="fs-5">Pitch Variance</p> <input type="range" name="pitch" label="Pitch Variance" min="0" max="10" value="5" step="1">
+	<p class="fs-5">Energy Variance</p> <input type="range" name="energy" label="Energy Variance" min="0" max="10" value="5" step="1">
+</div>
+          
+            <!--<img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+            <!--<h1 class="display-6 fw-bold">Hello {{name}}</h1>-->
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+            <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Generate Speech</button>
+            </div>
+          </div>
+        </form>
+
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+    <p class="fs-5">Listen to Hausa Demo: </p>
+    <audio controls>
+        <source src="static/demo/hausai_base.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    <p class="fs-5"> </p>
+    <p class="fs-5">Listen to Swahili Demo: </p>
+    <audio controls>
+        <source src="static/demo/swahili_base.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    <a class="btn btn-primary btn-lg px-4 gap-3" href="/logout">Logout</a>
+   </div>
+
+     </main>      
+   </body>
+</html>
