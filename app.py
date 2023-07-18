@@ -29,6 +29,13 @@ def index():
         return redirect(url_for('login'))
 
 
+
+@app.route('/welcome')
+def welcome():
+    return render_template('index.html')
+
+
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)
