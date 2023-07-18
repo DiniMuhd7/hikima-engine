@@ -14,8 +14,8 @@ app.secret_key = '\x10\x95M\xc4u\xed\x0c\xb7\xaa\x90:\xfc\xe9\x9c\x98\xbc\xa2d\x
 
 # Dictionary to store user credentials (replace with your user database)
 users = {
-    'demo@hikima.ai': 'pass-X202E',
-    'admin@hikima.ai': 'pass-E202X',
+    'demo@hikima.ai': ' ',
+    'admin@hikima.ai': ' ',
 }
 
 
