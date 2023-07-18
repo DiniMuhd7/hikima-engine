@@ -1,5 +1,5 @@
 Flask==2.0.2
-gunicorn
+gunicorn~=21.0.1
 ﻿torch_complex~=0.4.3
 tqdm~=4.64.1
 scipy~=1.9.3
