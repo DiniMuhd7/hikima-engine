@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'hikima-engine'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3F9E1C8881F845AD8CE2DCF9AA33E661 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_148AD459CE8D435ABB785B7409255591 }}
