@@ -38,14 +38,16 @@ stages:
         versionSpec: '$(pythonVersion)'
       displayName: 'Use Python $(pythonVersion)'
 
-    - script: |
+    - script: 
         python -m venv antenv
         source antenv/bin/activate
         python -m pip install --upgrade pip
         pip install setup
         pip install -r requirements.txt
-	apt-get install libportaudio2
-	apt-get install espeak-ng
+	apt-get install -y espeak-ng
+	apt-get install -y libportaudio2
+	apt-get install -y libsndfile1
+	apt-get install -y libsndfile1-dev
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
 
