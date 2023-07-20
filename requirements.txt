@@ -24,3 +24,6 @@ speechbrain~=0.5.13
 dragonmapper~=0.2.6
 auraloss~=0.2.2
 alias_free_torch~=0.0.6
+python-docx~=0.8.11
+pypdf~=3.12.2
+ruamel.yaml==0.17.28
