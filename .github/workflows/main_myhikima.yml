@@ -24,13 +24,13 @@ jobs:
 
       - name: Create and start virtual environment
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          python -m venv antenv
+          source antenv/bin/activate
       
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          sudo apt update && sudo apt-get update && sudo apt-get install -y espeak-ng libportaudio2 build-essential software-properties-common gcc libsndfile1
+          sudo apt update && sudo apt-get update && sudo apt-get install -y espeak-ng libportaudio2 libsndfile1
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
@@ -40,7 +40,7 @@ jobs:
           name: python-app
           path: |
             . 
-            !venv/
+            !antenv/
 
   deploy:
     runs-on: ubuntu-latest
