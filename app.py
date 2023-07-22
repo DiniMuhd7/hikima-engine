@@ -10,7 +10,7 @@ from flask import (Flask, redirect, render_template, request, session,
 from InferenceInterfaces.ToucanTTSInterface import ToucanTTSInterface
 
 app = Flask(__name__)
-app.secret_key = '\x10\x95M\xc4u\xed\x0c\xb7\xaa\x90:\xfc\xe9\x9c\x98\xbc\xa2d\x7f-/\x08*\x86'  # Set a secret key for session encryption
+app.secret_key = '\x10\x95M\xc4u\xed\x0c\xb7\xaa\x90:\xfc\xe9\x9c\x98\xbc\xa2d\x7f-/\x08*\x86'  # Set a secret key for session encryption.
 
 # Dictionary to store user credentials (replace with your user database)
 users = {
