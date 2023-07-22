@@ -75,7 +75,7 @@ def read_texts(model_id, sentence, filename, device="cpu", language="", speaker_
     del tts
 
 
-# Setup model for inference experiments
+# Setup model for inference experiment
 def the_raven(version, model_id, exsentence, exec_device="cpu", speed_over_quality=False, speaker_reference=None, langcode=""):
     if langcode != "" and langcode == "ha":
         twicklang = "sw"
@@ -97,7 +97,7 @@ def the_raven(version, model_id, exsentence, exec_device="cpu", speed_over_quali
                faster_vocoder=speed_over_quality)
 
 
-
+# Initiate inference for experiment
 @app.route('/inference', methods=['GET', 'POST'])
 def inference():
     if 'username' in session:
