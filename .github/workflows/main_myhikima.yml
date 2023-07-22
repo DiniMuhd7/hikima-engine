@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://mcr.microsoft.com/
-        username: ${{ secrets.AzureAppService_ContainerUsername_d81f13fea45148069b74a4ada83f9901 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_fb005f094d7546b49e9f632c1c798969 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_f7597828254047efaa79ce21805a81b5 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_4336385b11274aa5b8416e4d4efbcf6a }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_d81f13fea45148069b74a4ada83f9901 }}/appsvc/staticsite:${{ github.sha }}
+        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_f7597828254047efaa79ce21805a81b5 }}/appsvc/staticsite:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'myhikima'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_6b658a41d44d4caaac13a065146abd27 }}
-        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_d81f13fea45148069b74a4ada83f9901 }}/appsvc/staticsite:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_e40dd065f4be4bc784ba4b431082b53c }}
+        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_f7597828254047efaa79ce21805a81b5 }}/appsvc/staticsite:${{ github.sha }}'
