@@ -27,3 +27,4 @@ alias_free_torch~=0.0.6
 python-docx~=0.8.11
 pyPDF2~=3.0.1
 ruamel.yaml==0.17.28
+clldutils

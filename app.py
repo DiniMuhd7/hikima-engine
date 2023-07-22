@@ -1,6 +1,4 @@
 import os
-os.environ['LD_LIBRARY_PATH'] = '/usr/lib/x86_64-linux-gnu/libsndfile.so.1'
-
 import torch
 import random
 import docx
