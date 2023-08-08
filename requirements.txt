@@ -29,7 +29,3 @@ pyPDF2~=3.0.1
 ruamel.yaml==0.17.28
 clldutils
 config
-twilio
-pydrive
-requests
-google-drive
