@@ -3,20 +3,76 @@ import torch
 import random
 import docx
 import PyPDF2
+import json
+
+from twilio.rest import Client
+from twilio.twiml.messaging_response import MessagingResponse
+
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+import requests
+import uuid
 
 from flask import (Flask, redirect, render_template, request, session,
-                   send_from_directory, url_for)
+                   send_from_directory, url_for, jsonify)
 
 from InferenceInterfaces.ToucanTTSInterface import ToucanTTSInterface
 
 app = Flask(__name__)
 app.secret_key = '\x10\x95M\xc4u\xed\x0c\xb7\xaa\x90:\xfc\xe9\x9c\x98\xbc\xa2d\x7f-/\x08*\x86'  # Set a secret key for session encryption.
 
+
+# Initialize Google Drive API
+gauth = GoogleAuth()
+gauth.LocalWebserverAuth()
+drive = GoogleDrive(gauth)
+
+account_sid = 'AC65795a522b5006f5fd8fa139647ac947'
+auth_token = '1dce9d48c8505b7d6dba942a28bc5394'
+client = Client(account_sid, auth_token)
+
+
+# Define your Google Drive folder ID
+GOOGLE_DRIVE_FOLDER_ID = 'hikima-data'
+
+# Dictionary to store user recordings and associated metadata
+user_recordings = {}
+
+
 # Dictionary to store user credentials (replace with your user database)
 users = {
     'demo@hikima.ai': 'pass-X202E',
     'admin@hikima.ai': 'pass-E202X',
 }
+
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+	try:
+        message = client.messages.create(
+            from_='whatsapp:+14155238886',
+            body='Do you want to create a digital version of your voice? Send us your voice recordings, we will train an AI model that will sould like you.',
+            to='whatsapp:+2348139476119'
+        )
+        if request.method == 'POST' and 'MediaUrl0' in request.form:
+            media_url = request.form['MediaUrl0']
+            user_email = request.form['From']
+            language_type = request.form['Body']
+            
+            voice_recording_path = download_voice_recording(media_url)
+            file_id = upload_to_google_drive(voice_recording_path)
+            clean_up_temporary_file(voice_recording_path)
+            
+            save_user_recording(user_email, language_type, file_id)
+            
+            # Add code for model training integration
+            
+            response = MessagingResponse()
+            response.message('Thank you for your voice recording!')
+            return str(response)
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return "An error occurred."
 
 
 @app.route('/')
@@ -34,6 +90,36 @@ def index():
 def welcome():
     return render_template('index.html')
 
+
+
+@app.route('/profile')
+def profile():
+    sentences = [
+        "Bringing technology to your doorstep in an accelarating time.",
+        "Under whose authority does a machine learning dataset is built?",
+        "Overfitting is a major problem in training an AI model, in what ways can this be addressed?"
+    ]
+ 
+    return render_template('profile.html',sentences=sentences)
+
+
+@app.route('/record', methods=['POST'])
+def record():
+    user_id = request.form.get('user_id')
+    sentence = request.form.get('sentence')
+
+    # Replace this with your implementation to handle the recording and saving logic
+    # Save the recording to a directory named after the user ID
+    audio_file = request.files['audio']
+    if audio_file:
+        directory = f"recordings/{user_id}"
+        os.makedirs(directory, exist_ok=True)
+        filepath = os.path.join(directory, f"{sentence.replace(' ', '_')}.wav")
+        audio_file.save(filepath)
+
+        return jsonify(success=True, message="Recording saved successfully!")
+
+    return jsonify(success=False, message="Failed to save the recording.")
 
 
 @app.route('/logout')
@@ -62,6 +148,34 @@ def login():
             else:
                 return render_template('login.html', message=message)
     return render_template('login.html', message='')
+
+
+def download_voice_recording(media_url):
+    file_extension = media_url.split('.')[-1]
+    voice_recording_path = f'temp/{str(uuid.uuid4())}.{file_extension}'
+    response = requests.get(media_url, stream=True)
+    
+    with open(voice_recording_path, 'wb') as file:
+        for chunk in response.iter_content(chunk_size=8192):
+            file.write(chunk)
+    
+    return voice_recording_path
+
+def upload_to_google_drive(file_path):
+    file = drive.CreateFile({'title': os.path.basename(file_path), 'parents': [{'id': GOOGLE_DRIVE_FOLDER_ID}]})
+    file.SetContentFile(file_path)
+    file.Upload()
+    return file['id']
+
+def clean_up_temporary_file(file_path):
+    os.remove(file_path)
+
+def save_user_recording(user_email, language_type, file_id):
+    if user_email in user_recordings:
+        user_recordings[user_email].append((language_type, file_id))
+    else:
+        user_recordings[user_email] = [(language_type, file_id)]
+
 
 # Read texts
 def read_texts(model_id, sentence, filename, device="cpu", language="", speaker_reference=None, faster_vocoder=False):
@@ -342,4 +456,5 @@ def inferencex():
         return redirect(url_for('login'))
 
 if __name__ == '__main__':
-   app.run()
+    os.makedirs('temp', exist_ok=True)
+    app.run()
