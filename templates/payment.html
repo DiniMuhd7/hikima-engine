@@ -1,0 +1,310 @@
+<!doctype html>
+<head>
+    <title>Hikima - Credits</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png')}}">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <!--Replace with your tailwind.css once created-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+    <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+    <style>
+      .gradient {
+        background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+      }
+    </style>
+</head>
+<html>
+   <body>
+
+    <!--Nav-->
+    <nav id="header" class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+      <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
+        <div class="pl-4 flex items-center">
+          <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="">
+            <!--Icon from: http://www.potlabicons.com/ 
+            <svg class="h-8 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
+              <rect fill="#2a2a31" x="16.539" y="425.626" width="479.767" height="50.502" transform="matrix(1,0,0,1,0,0)" />
+              
+            </svg>
+          -->
+            Hikima
+          </a>
+        </div>
+        <div class="block lg:hidden pr-4">
+          <button id="nav-toggle" class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <title>Menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+          </button>
+        </div>
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
+          <ul class="list-reset lg:flex justify-end flex-1 items-center">
+            <li class="mr-3">
+              <a class="inline-block text-black font-bold  no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">{{ balance }} Credits</a>
+            </li>
+            <li class="mr-3">
+              <a class="inline-block py-2 px-4 text-black no-underline" href="/speech">Speech</a>
+            </li>
+            <li class="mr-3">
+              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="/translate">Translate</a>
+            </li>
+            <!--
+            <li class="mr-3">
+              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">Translation</a>
+            </li>
+            <li class="mr-3">
+              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">Developer</a>
+            </li>
+          -->
+            <li class="mr-3">
+              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="/logout">Sign Out</a>
+            </li>
+          </ul>
+          <!--
+          <button
+            id="navAction"
+            class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+          >
+            Sign In
+          </button>
+        -->
+        </div>
+      </div>
+      <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
+    </nav>
+
+     <main>
+
+      <section class="bg-gray-100 py-8">
+        <div class="container mx-auto px-2 pt-4 pb-12 text-gray-800">
+          <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+            Pricing
+          </h2>
+          <div class="w-full mb-4">
+            <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row justify-center pt-12 my-12 sm:my-4">
+            
+            <div class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4">
+              <form method="post" enctype="multipart/form-data" action="/pilotpay">
+              <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow">
+                <div class="p-8 text-3xl font-bold text-center border-b-4">
+                  Pilot
+                </div>
+                <ul class="w-full text-center text-sm">
+                  <li class="border-b py-4">Audio Speech Generation</li>
+                  <li class="border-b py-4">Audio Dubbing (Transcribe-Translate)</li>
+                  <li class="border-b py-4">Video Dubbing (Transcribe-Translate)</li>
+                  <li class="border-b py-4">Feature Customization</li>
+                </ul>
+              </div>
+              <div class="w-full">
+                <select id="currency" class="form-control text-center" name="currency" required>
+                  <option value="">Choose Your Currency</option>
+                  <option value="GBP">British Pound Sterling</option>
+                  <option value="CAD">Canadian Dollar</option>
+                  <option value="XAF">Central African CFA Franc</option>
+                  <option value="CLP">Chilean Peso</option>
+                  <option value="COP">Colombian Peso</option>
+                  <option value="EGP">Egyptian Pound</option>
+                  <option value="EUR">Euro</option>
+                  <!--<option value="GHS">Ghanaian Cedi</option>-->
+                  <!--<option value="GNF">Guinean Franc</option>-->
+                  <!--<option value="KES">Kenyan Shilling</option>-->
+                  <!--<option value="MWK">Malawian Kwacha</option>-->
+                  <option value="MAD">Moroccan Dirham</option>
+                  <option value="NGN">Nigerian Naira</option>
+                  <!--<option value="RWF">Rwandan Franc</option>-->
+                  <!--<option value="SLL">Sierra Leonean Leone</option>-->
+                  <!--<option value="STD">São Tomé and Príncipe dobra</option>-->
+                  <option value="ZAR">South African Rand</option>
+                  <!--<option value="TZS">Tanzanian Shilling</option>-->
+                  <!--<option value="UGX">Ugandan Shilling</option>-->
+                  <option value="USD">United States Dollar</option>
+                  <option value="XOF">West African CFA Franc BCEAO</option>
+                  <!--<option value="ZMW">Zambian Kwacha</option>-->
+                  <!-- Add more options here as needed -->
+              </select>
+              </div>
+              <div class="flex-none mt-auto bg-white rounded-b rouned-t-none overflow-hidden shadow p-6">
+                <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">
+                  $0.99
+                  <span class="text-base">/ 200 credits</span>
+                </div>
+                <div class="flex items-center justify-center">
+                  <button type="submit" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                    Pay Now
+                  </button>
+                </div>
+              </div>
+            </form>
+            </div>
+
+            <div class="flex flex-col w-5/6 lg:w-1/3 mx-auto lg:mx-0 rounded-lg bg-white mt-4 sm:-mt-6 shadow-lg z-10">
+              <form method="post" enctype="multipart/form-data" action="/goldpay">
+              <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                <div class="w-full p-8 text-3xl font-bold text-center">Gold</div>
+                <div class="h-1 w-full gradient my-0 py-0 rounded-t"></div>
+                <ul class="w-full text-center text-base font-bold">
+                  <li class="border-b py-4">Audio Speech Generation</li>
+                  <li class="border-b py-4">Audio Dubbing (Transcribe-Translate)</li>
+                  <li class="border-b py-4">Video Dubbing (Transcribe-Translate)</li>
+                  <li class="border-b py-4">Feature Customization</li>
+                </ul>
+                <div class="w-full">
+                  <select id="currency" class="form-control text-center" name="currency" required>
+                  <option value="">Choose Your Currency</option>
+                  <option value="GBP">British Pound Sterling</option>
+                  <option value="CAD">Canadian Dollar</option>
+                  <option value="XAF">Central African CFA Franc</option>
+                  <option value="CLP">Chilean Peso</option>
+                  <option value="COP">Colombian Peso</option>
+                  <option value="EGP">Egyptian Pound</option>
+                  <option value="EUR">Euro</option>
+                  <!--<option value="GHS">Ghanaian Cedi</option>-->
+                  <!--<option value="GNF">Guinean Franc</option>-->
+                  <!--<option value="KES">Kenyan Shilling</option>-->
+                  <!--<option value="MWK">Malawian Kwacha</option>-->
+                  <option value="MAD">Moroccan Dirham</option>
+                  <option value="NGN">Nigerian Naira</option>
+                  <!--<option value="RWF">Rwandan Franc</option>-->
+                  <!--<option value="SLL">Sierra Leonean Leone</option>-->
+                  <!--<option value="STD">São Tomé and Príncipe dobra</option>-->
+                  <option value="ZAR">South African Rand</option>
+                  <!--<option value="TZS">Tanzanian Shilling</option>-->
+                  <!--<option value="UGX">Ugandan Shilling</option>-->
+                  <option value="USD">United States Dollar</option>
+                  <option value="XOF">West African CFA Franc BCEAO</option>
+                  <!--<option value="ZMW">Zambian Kwacha</option>-->
+                  <!-- Add more options here as needed -->
+                </select>
+                </div>
+              </div>
+              
+              <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                <div class="w-full pt-6 text-4xl font-bold text-center">
+                  $9.99
+                  <span class="text-base">/ 3000 credits</span>
+                </div>
+                <div class="flex items-center justify-center">
+                  <button type="submit" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                    Pay Now
+                  </button>
+                </div>
+              </div>
+              </form>
+            </div>
+
+            <div class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4">
+              <form method="post" enctype="multipart/form-data" action="/slatepay">
+              <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow">
+                <div class="p-8 text-3xl font-bold text-center border-b-4">
+                  Slate
+                </div>
+                <ul class="w-full text-center text-sm">
+                  <li class="border-b py-4">Audio Speech Generation</li>
+                  <li class="border-b py-4">Audio Dubbing (Transcribe-Translate)</li>
+                  <li class="border-b py-4">Video Dubbing (Transcribe-Translate)</li>
+                  <li class="border-b py-4">Feature Customization</li>
+                </ul>
+              </div>
+              
+              <div class="w-full">
+                <select id="currency" class="form-control text-center" name="currency" required>
+                  <option value="">Choose Your Currency</option>
+                  <option value="GBP">British Pound Sterling</option>
+                  <option value="CAD">Canadian Dollar</option>
+                  <option value="XAF">Central African CFA Franc</option>
+                  <option value="CLP">Chilean Peso</option>
+                  <option value="COP">Colombian Peso</option>
+                  <option value="EGP">Egyptian Pound</option>
+                  <option value="EUR">Euro</option>
+                  <!--<option value="GHS">Ghanaian Cedi</option>-->
+                  <!--<option value="GNF">Guinean Franc</option>-->
+                  <!--<option value="KES">Kenyan Shilling</option>-->
+                  <!--<option value="MWK">Malawian Kwacha</option>-->
+                  <option value="MAD">Moroccan Dirham</option>
+                  <option value="NGN">Nigerian Naira</option>
+                  <!--<option value="RWF">Rwandan Franc</option>-->
+                  <!--<option value="SLL">Sierra Leonean Leone</option>-->
+                  <!--<option value="STD">São Tomé and Príncipe dobra</option>-->
+                  <option value="ZAR">South African Rand</option>
+                  <!--<option value="TZS">Tanzanian Shilling</option>-->
+                  <!--<option value="UGX">Ugandan Shilling</option>-->
+                  <option value="USD">United States Dollar</option>
+                  <option value="XOF">West African CFA Franc BCEAO</option>
+                  <!--<option value="ZMW">Zambian Kwacha</option>-->
+                  <!-- Add more options here as needed -->
+              </select>
+              </div>
+
+              <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">
+                  $4.99
+                  <span class="text-base">/ 1200 credits</span>
+                </div>
+                <div class="flex items-center justify-center">
+                  <button type="submit" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                    Pay Now
+                  </button>
+                </div>
+              </div>
+            </form>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+   <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+   <p class="fs-5"> </p>
+   <p class="fs-6">&copy; 2023 Hikima AI Lab</p>
+   </div>
+
+     </main> 
+     
+     <script>
+      /*Toggle dropdown list*/
+      /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+      var navMenuDiv = document.getElementById("nav-content");
+      var navMenu = document.getElementById("nav-toggle");
+
+      document.onclick = check;
+      function check(e) {
+        var target = (e && e.target) || (event && event.srcElement);
+
+        //Nav Menu
+        if (!checkParent(target, navMenuDiv)) {
+          // click NOT on the menu
+          if (checkParent(target, navMenu)) {
+            // click on the link
+            if (navMenuDiv.classList.contains("hidden")) {
+              navMenuDiv.classList.remove("hidden");
+            } else {
+              navMenuDiv.classList.add("hidden");
+            }
+          } else {
+            // click both outside link and outside menu, hide menu
+            navMenuDiv.classList.add("hidden");
+          }
+        }
+      }
+      function checkParent(t, elm) {
+        while (t.parentNode) {
+          if (t == elm) {
+            return true;
+          }
+          t = t.parentNode;
+        }
+        return false;
+      }
+    </script>
+     
+   </body>
+</html>

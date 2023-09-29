@@ -1,8 +1,11 @@
 <!doctype html>
 <head>
-    <title>Hikima - Engine</title>
+    <title>Hikima - Audio Speech</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png')}}">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <!--Replace with your tailwind.css once created-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
@@ -41,20 +44,22 @@
         <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
             <li class="mr-3">
-              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">Assistant</a>
+              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="/purchase">{{ balance }} Credits</a>
             </li>
             <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="">Speech</a>
+              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">Speech</a>
             </li>
             <li class="mr-3">
-              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">Music</a>
+              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="/translate">Translate</a>
             </li>
+            <!--
             <li class="mr-3">
               <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">Translation</a>
             </li>
             <li class="mr-3">
               <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">Developer</a>
             </li>
+          -->
             <li class="mr-3">
               <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="/logout">Sign Out</a>
             </li>
@@ -73,102 +78,287 @@
     </nav>
 
      <main>
-   
-        <div class="px-4 py-3 my-2 text-center">
-<!--
-            <img src="{{ url_for('static', filename='images/hero.png') }}" alt="Azure Logo" width="400" height="350""/>
--->
-
-<p class="fs-5">Create a Speech from Document</p>
-
-<!--<label for="tx-area" class="form-label fw-bold fs-5">Enter your text:</label>-->
-            <form method="post" enctype="multipart/form-data" action="/inferencex">
-<!-- Scale factor -->
-<div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-	<p class="fs-5">Scale Factor</p> <input type="range" name="durationx" label="Duration Scale" min="0" max="10" value="5" step="1">
-	<p class="fs-5">Pause Duration</p> <input type="range" name="pausex" label="Pause Duration" min="0" max="10" value="5" step="1">
-	<p class="fs-5">Pitch Variance</p> <input type="range" name="pitchx" label="Pitch Variance" min="0" max="10" value="5" step="1">
-	<p class="fs-5">Energy Variance</p> <input type="range" name="energyx" label="Energy Variance" min="0" max="10" value="5" step="1">
-</div>
-            <select id="tagd" class="form-control" name="tagd">
-              <option value="p">Select Your Language</option>
-              <option value="ha">Hausa</option>
-              <option value="sw">Swahili</option>
-              <option value="yo">Yoruba (unavailable)</option>
-              <option value="lg">Lingala (unavailable)</option>
-              <option value="ig">Igbo (unavailable)</option>
-              <option value="ff">Fulfulde (unavailable)</option>
-              <!-- Add more options here as needed -->
-            </select>
-	<div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-        <p class="fs-5">Document</p> <input type="file" class="form-control" name="docfile" accept=".txt, .pdf, .doc, .docx">
-	<p class="fs-5">Prosody</p> <input type="file" class="form-control" name="wavfilex" accept=".wav, .mp3">
-	<p class="fs-5"> </p>
-	<input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="Generate Speech">
-</div>
-    </form>
-    
-    <p class="fs-6 text-primary">{{ message }}</p>
-
-    {% if audio_visible %}
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-    <audio controls>
-        <source src="{{ audio_file }}" type="audio/wav">
-        Your browser does not support the audio element.
-    </audio>
-   </div>
-   {% endif %}
-
-	<p class="fs-5"> </p>
-            <p class="fs-5">Create a Speech from Text Box</p>
+      <i class="px-4 py-3 my-2 col-md-6 fs-5">{{ greetings }}</i>
+      <div class="px-4 py-3 my-2 text-center">
+      <div class="container mt-5">
+        <div class="row">
+            <!-- Left Column: Form -->
+      <div class="col-md-6">
+        <img src="{{ url_for('static', filename='images/hero.png') }}" alt="Hikima Logo" width="auto" height="auto" class="img-fluid">
+      </div>
+            <!-- Right Column: Image -->
+      <div class="col-md-6">
+        <p class="fs-5">Create an Audio Speech from Text</p>
 
             <!--<label for="tx-area" class="form-label fw-bold fs-5">Enter your text:</label>-->
-            <form method="post" action="{{url_for('inference')}}">
-            <select id="tag" class="form-control" name="tag">
-              <option value="p">Select Your Language</option>
+            <form method="post" enctype="multipart/form-data" action="{{url_for('speech')}}">
+
+              <div class="mb-3">
+                <p class="fs-6">Select langauge of speech engine e.g French</p>
+            <select id="tag" class="form-control" name="tag" required>
+              <option value="">Select language</option>
+              <option value="en">English</option>
+              <option value="fr">French</option>
+              <option value="ar">Arabic</option>
               <option value="ha">Hausa</option>
               <option value="sw">Swahili</option>
-              <option value="yo">Yoruba (unavailable)</option>
-              <option value="lg">Lingala (unavailable)</option>
-              <option value="ig">Igbo (unavailable)</option>
-              <option value="ff">Fulfulde (unavailable)</option>
+              <option value="yo">Yoruba</option>
+              <option value="ff">Fulfulde</option>
+              <option value="hi">Hindi</option>
+              <option value="he">Hebrew</option>
+              <option value="de">German</option>
+              <option value="ca">Catalan</option>
+              <option value="zh">Chinese</option>
+              <option value="nl">Dutch</option>
+              <option value="fi">Finnish</option>
+              <option value="el">Greek</option>
+              <option value="th">Thai</option>
+              <option value="ko">Korean</option>
+              <option value="ms">Malay</option>
+              <option value="pl">Polish</option>
+              <option value="pt">Portuguese</option>
+              <option value="ro">Romanian</option>
+              <option value="ru">Russian</option>
+              <option value="es">Spanish</option>
+              <option value="sv">Swedish</option>
+              <option value="tr">Turkish</option>
+              <option value="uk">Ukrainian</option>
               <!-- Add more options here as needed -->
             </select>
-
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-              <textarea id="syn" class="form-control" name="syn" rows="5" cols="50" placeholder="Write what you want the system to read in your selected langauge. Please make use of punctuations where necessary..."></textarea>
-            </div>
-
-<div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-	<p class="fs-5">Prosody</p> <input type="file" class="form-control" name="wavfile" accept=".wav, .mp3">
-</div>
-
-<p class="fs-5"> </p>
-
-<!-- Scale factor -->
-<div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-	<p class="fs-5">Scale Factor</p> <input type="range" name="duration" label="Duration Scale" min="0" max="10" value="5" step="1">
-	<p class="fs-5">Pause Duration</p> <input type="range" name="pause" label="Pause Duration" min="0" max="10" value="5" step="1">
-	<p class="fs-5">Pitch Variance</p> <input type="range" name="pitch" label="Pitch Variance" min="0" max="10" value="5" step="1">
-	<p class="fs-5">Energy Variance</p> <input type="range" name="energy" label="Energy Variance" min="0" max="10" value="5" step="1">
-</div>
-          
-            <!--<img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-            <!--<h1 class="display-6 fw-bold">Hello {{name}}</h1>-->
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
-            <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Generate Speech</button>
-            </div>
           </div>
-        </form>
 
+
+            <div class="mb-3">
+              <p class="fs-6">Write your transcript for speech synthesis</p>
+              <textarea required id="syn" class="form-control" name="syn" rows="5" cols="50" placeholder="Write your transcript in your selected langauge. Include punctuations where necessary..."></textarea>
+            </div>
+
+            <div class="mb-3">
+              <p class="fs-6">Select speech engine of speech synthesis e.g French</p>
+              <select id="isocode" class="form-control" name="isocode" required>
+                <option value="">Select speech engine</option>
+                <option value="eng">English</option>
+                <option value="fra">French</option>
+                <option value="ara">Arabic</option>
+                <option value="hau">Hausa</option>
+                <option value="swh">Swahili</option>
+                <option value="yor">Yoruba</option>
+                <option value="ful">Fulfulde</option>
+                <option value="hin">Hindi</option>
+                <option value="heb">Hebrew</option>
+                <option value="deu">German</option>
+                <option value="cat">Catalan</option>
+                <option value="hak">Chinese</option>
+                <option value="nld">Dutch</option>
+                <option value="fin">Finnish</option>
+                <option value="ell">Greek</option>
+                <option value="nod">Thai</option>
+                <option value="kor">Korean</option>
+                <option value="ind">Malay</option>
+                <option value="pol">Polish</option>
+                <option value="por">Portuguese</option>
+                <option value="ron">Romanian</option>
+                <option value="rus">Russian</option>
+                <option value="spa">Spanish</option>
+                <option value="swe">Swedish</option>
+                <option value="tur">Turkish</option>
+                <option value="ukr">Ukrainian</option>
+                <!-- Add more options here as needed -->
+              </select>
+          </div>
+
+            <!--
+            <div class="mb-3">
+              <input type="text" class="form-control" id="prosody" name="prosody" placeholder="Enter URL address of reference speaker. (Optional)">
+            </div>
+          -->
+
+          <div class="mb-3">
+            <p hidden id="second-load-message" class="fs-6">Please wait! This process may take longer than usual. Do not refresh.</p>
+            <div hidden class="progress" id="second-progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+            </div>
+
+      <!--   
+      {% if error_visible %}
+      <div class="mb-3">
+        <div class="alert alert-danger" role="alert">{{ error_message }}<a href="/purchase" class="alert-link"> Get Credit</a></div>
+      </div>
+      {% endif %}
+      -->
+
+<button id="second-button" type="submit" class="btn btn-primary">Submit</button>
+  </form>
+      </div>
+
+      <div class="mb-3">
+        <p class="fs-6 text-primary">{{ message }}</p>
+
+        {% if audio_visible %}
+        <script>stopProgress()</script>
+        <script>stopProgress2()</script>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+        <audio controls>
+            <source src="{{ audio_file }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+       </div>
+       {% endif %}
+      </div>
+
+      <div class="px-4 py-3 my-2 text-center">
+        <div class="container mt-5">
+          <div class="row">
+              <!-- Left Column: Form -->
+              <div class="col-md-6">
+                <p class="fs-5">Create an Audio Speech from Document File</p>
+  
+  <!--<label for="tx-area" class="form-label fw-bold fs-5">Enter your text:</label>-->
+              <form method="post" enctype="multipart/form-data" action="/speechx">
+  <!-- Scale factor -->
+  <!--
+  <div class="mb-3">
+    <p class="fs-5">Scale Factor</p> <input type="range" name="durationx" label="Duration Scale" min="0" max="10" value="5" step="1">
+    <p class="fs-5">Pause Duration</p> <input type="range" name="pausex" label="Pause Duration" min="0" max="10" value="5" step="1">
+    <p class="fs-5">Pitch Variance</p> <input type="range" name="pitchx" label="Pitch Variance" min="0" max="10" value="5" step="1">
+    <p class="fs-5">Energy Variance</p> <input type="range" name="energyx" label="Energy Variance" min="0" max="10" value="5" step="1">
+  </div>
+  -->
+              <div class="mb-3">
+              <p class="fs-6">Select langauge of speech engine e.g French</p>
+              <select id="tagd" class="form-control" name="tagd" required>
+                <option value="">Select language</option>
+                <option value="en">English</option>
+                <option value="fr">French</option>
+                <option value="ar">Arabic</option>
+                <option value="ha">Hausa</option>
+                <option value="sw">Swahili</option>
+                <option value="yo">Yoruba</option>
+                <option value="ff">Fulfulde</option>
+                <option value="hi">Hindi</option>
+                <option value="he">Hebrew</option>
+                <option value="de">German</option>
+                <option value="ca">Catalan</option>
+                <option value="zh">Chinese</option>
+                <option value="nl">Dutch</option>
+                <option value="fi">Finnish</option>
+                <option value="el">Greek</option>
+                <option value="th">Thai</option>
+                <option value="ko">Korean</option>
+                <option value="ms">Malay</option>
+                <option value="pl">Polish</option>
+                <option value="pt">Portuguese</option>
+                <option value="ro">Romanian</option>
+                <option value="ru">Russian</option>
+                <option value="es">Spanish</option>
+                <option value="sv">Swedish</option>
+                <option value="tr">Turkish</option>
+                <option value="uk">Ukrainian</option>
+                <!-- Add more options here as needed -->
+              </select>
+              </div>
+  
+    <div class="mb-3">
+      <p class="fs-6">Select document file from system (.txt, .pdf, .docx)</p>
+          <input type="file" class="form-control" name="docfile" accept=".txt, .pdf, .doc, .docx" required>
+  </div>
+  
+  <div class="mb-3">
+    <p class="fs-6">Select category of content</p>
+    <select id="tagcat" class="form-control" name="tagcat" required>
+      <option value="">Select category of content</option>
+      <option value="news">News</option>
+      <option value="novel">Literature</option>
+      <option value="holy">Holy book</option>
+      <option value="other">Other</option>
+      <!-- Add more options here as needed -->
+    </select>
+  </div>
+  
+  <div class="mb-3">
+    <p class="fs-6">Select speech engine of speech synthesis e.g French</p>
+    <select id="isocode" class="form-control" name="isocode" required>
+      <option value="">Select speech engine</option>
+      <option value="eng">English</option>
+      <option value="fra">French</option>
+      <option value="ara">Arabic</option>
+      <option value="hau">Hausa</option>
+      <option value="swh">Swahili</option>
+      <option value="yor">Yoruba</option>
+      <option value="ful">Fulfulde</option>
+      <option value="hin">Hindi</option>
+      <option value="heb">Hebrew</option>
+      <option value="deu">German</option>
+      <option value="cat">Catalan</option>
+      <option value="hak">Chinese</option>
+      <option value="nld">Dutch</option>
+      <option value="fin">Finnish</option>
+      <option value="ell">Greek</option>
+      <option value="nod">Thai</option>
+      <option value="kor">Korean</option>
+      <option value="ind">Malay</option>
+      <option value="pol">Polish</option>
+      <option value="por">Portuguese</option>
+      <option value="ron">Romanian</option>
+      <option value="rus">Russian</option>
+      <option value="spa">Spanish</option>
+      <option value="swe">Swedish</option>
+      <option value="tur">Turkish</option>
+      <option value="ukr">Ukrainian</option>
+      <!-- Add more options here as needed -->
+    </select>
+  </div>
+  
+  <div class="mb-3">
+    <p hidden id="first-load-message" class="fs-6">Please wait! This process may take longer than usual. Do not refresh.</p>
+    <div hidden class="progress" id="first-progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    </div>
+  
+        {% if error_visible %}
+        <div class="mb-3">
+          <div class="alert alert-danger" role="alert">{{ error_message }}<a href="/purchase" class="alert-link"> Get Credit</a></div>
+        </div>
+        {% endif %}
+  
+                      <button id="first-button" type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+              </div>
+  
+              <!-- Right Column: Image -->
+      <div class="col-md-6">
+        <img src="{{ url_for('static', filename='images/hero.png') }}" alt="Hikima Logo" width="auto" height="auto" class="img-fluid">
+      </div>
+
+      <div class="mb-3">
+        <p class="fs-6 text-primary">{{ message }}</p>
+
+        {% if audio_visible %}
+        <script>stopProgress()</script>
+        <script>stopProgress2()</script>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+        <audio controls>
+            <source src="{{ audio_file }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+       </div>
+       {% endif %}
+      </div>
+
+      </div>
+
+      <p class="fs-5"> </p>
+      <p class="fs-5"> </p>
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-    <p class="fs-5">Listen to Hausa Demo: </p>
+    <p class="fs-6">Hausa Demo: </p>
     <audio controls>
         <source src="static/demo/hausai_base.wav" type="audio/wav">
         Your browser does not support the audio element.
     </audio>
     <p class="fs-5"> </p>
-    <p class="fs-5">Listen to Swahili Demo: </p>
+    <p class="fs-6">Swahili Demo: </p>
     <audio controls>
         <source src="static/demo/swahili_base.wav" type="audio/wav">
         Your browser does not support the audio element.
@@ -178,8 +368,7 @@
 
    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
    <p class="fs-5"> </p>
-   <p class="fs-6 text-primary">&copy; 2023 Hikima Research Lab</p>
-   <p class="fs-5"> </p>
+   <p class="fs-6">&copy; 2023 Hikima AI Lab</p>
    </div>
 
      </main> 
@@ -187,6 +376,30 @@
      <script>
       /*Toggle dropdown list*/
       /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+      document.getElementById("first-button").addEventListener("click", startProgress);
+      document.getElementById("second-button").addEventListener("click", startProgress2);
+
+      function startProgress() {
+        document.getElementById("first-load-message").hidden = false;
+        document.getElementById("first-progress").hidden = false;
+      }
+
+      function startProgress2() {
+        document.getElementById("second-load-message").hidden = false;
+        document.getElementById("second-progress").hidden = false;
+      }
+
+      function stopProgress() {
+        document.getElementById("first-load-message").hidden = true;
+        document.getElementById("first-progress").hidden = true;
+      }
+
+
+      function stopProgress2() {
+        document.getElementById("second-load-message").hidden = true;
+        document.getElementById("second-progress").hidden = true;
+      }
 
       var navMenuDiv = document.getElementById("nav-content");
       var navMenu = document.getElementById("nav-toggle");
