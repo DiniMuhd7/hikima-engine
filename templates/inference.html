@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-    <title>Hikima - Audio Speech</title>
+    <title>OwlTape - Audio Speech</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
@@ -30,7 +30,7 @@
               
             </svg>
           -->
-            Hikima
+            OwlTape
           </a>
         </div>
         <div class="block lg:hidden pr-4">
@@ -47,7 +47,7 @@
               <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="/purchase">{{ balance }} Credits</a>
             </li>
             <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">Speech</a>
+              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#">eSpeech</a>
             </li>
             <li class="mr-3">
               <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="/translate">Translate</a>
@@ -78,7 +78,9 @@
     </nav>
 
      <main>
-      <i class="px-4 py-3 my-2 col-md-6 fs-5">{{ greetings }}</i>
+      <div class="container">
+        <i class="px-4 py-3 my-2 col-md-6 fs-5">{{ greetings }}</i>
+      </div>
       <div class="px-4 py-3 my-2 text-center">
       <div class="container mt-5">
         <div class="row">
@@ -368,7 +370,7 @@
 
    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
    <p class="fs-5"> </p>
-   <p class="fs-6">&copy; 2023 Hikima AI Lab</p>
+   <p class="fs-6">&copy; 2023 Hikima Research Lab</p>
    </div>
 
      </main> 

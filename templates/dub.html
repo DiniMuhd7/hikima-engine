@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-    <title>Hikima - Translate</title>
+    <title>OwlTape - Translate</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
@@ -30,7 +30,7 @@
               
             </svg>
           -->
-            Hikima
+            OwlTape
           </a>
         </div>
         <div class="block lg:hidden pr-4">
@@ -47,7 +47,7 @@
               <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="/purchase">{{ balance }} Credits</a>
             </li>
             <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black no-underline" href="/speech">Speech</a>
+              <a class="inline-block py-2 px-4 text-black no-underline" href="/speech">eSpeech</a>
             </li>
             <li class="mr-3">
               <a class="inline-block text-black font-bold no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">Translate</a>
@@ -78,7 +78,11 @@
     </nav>
 
      <main>
-      <i class="px-4 py-3 my-2 col-md-6 fs-5">{{ greetings }}</i>
+
+      <div class="container">
+        <i class="px-4 py-3 my-2 col-md-6 fs-5">{{ greetings }}</i>
+      </div>
+      
         <div class="px-4 py-3 my-2 text-center">
 <!--
             <img src="{{ url_for('static', filename='images/hero.png') }}" alt="Azure Logo" width="400" height="350""/>
@@ -262,15 +266,15 @@
               <div class="mb-3">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="translate" id="machine" value="machine" checked>
-                    <label class="form-check-label" for="machine">Machine Translation</label>
+                    <label class="form-check-label" for="machine">Nueral Machine</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="translate" id="human" value="human">
-                    <label class="form-check-label" for="human">Human Translation</label>
+                    <label class="form-check-label" for="human">Human Touch</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="translate" id="crowdsource" value="crowdsource">
-                  <label class="form-check-label" for="crowdsource">Crowdsource Translation</label>
+                  <label class="form-check-label" for="crowdsource">Crowdsource Service</label>
               </div>
               </div>
 
@@ -577,7 +581,7 @@
 
   <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
    <p class="fs-5"> </p>
-   <p class="fs-6">&copy; 2023 Hikima AI Lab</p>
+   <p class="fs-6">&copy; 2023 Hikima Research Lab</p>
    <p class="fs-5"> </p>
    </div>
 
