@@ -48,7 +48,7 @@ from flask import (Flask, redirect, render_template, request, session,
 
 from flask_oauthlib.client import OAuth
 
-from InferenceInterfaces.ToucanTTSInterface import ToucanTTSInterface
+#from InferenceInterfaces.ToucanTTSInterface import ToucanTTSInterface
 
 # Load environment variables from the .env file in the current directory
 load_dotenv()
@@ -939,6 +939,7 @@ def translate():
         return redirect(url_for('login'))
 
 
+@retry(tries=3, delay=2, backoff=2)
 @app.route('/process', methods=['GET', 'POST'])
 def process():
     if 'google_token' in session:
@@ -988,6 +989,7 @@ def process():
             return 'Invalid input format. Please provide a valid list representation.'
 
 
+@retry(tries=3, delay=2, backoff=2)
 @app.route('/translatex', methods=['GET', 'POST'])
 def translatex():
     if 'google_token' in session:
@@ -1349,6 +1351,7 @@ def translatex():
         return redirect(url_for('login'))
 
 
+@retry(tries=3, delay=2, backoff=2)
 @app.route('/speechx', methods=['GET', 'POST'])
 def speechx():
     if 'google_token' in session:
@@ -1707,6 +1710,7 @@ def preprocess_speech_text(txt, text_mapper, hps, uroman_dir=None, lang=None):
     return txt
 
 
+@retry(tries=3, delay=2, backoff=2)
 # Method for downloading speech models
 def download(lang, tgt_dir="./"):
     lang_fn, lang_dir = os.path.join(tgt_dir, lang+'.tar.gz'), os.path.join(tgt_dir, lang)
@@ -1739,11 +1743,12 @@ def extract_audio_from_video(video_file):
         print(f"Error extracting audio from video: {e}")
         return None
 
+@retry(tries=3, delay=2, backoff=2)
 # Method for transcribing extracted audio using whisper
 def transcribe_audio(audio_file, source_language):
     try:
         print("Transcribing audio track")
-        model = whisper.load_model("tiny")
+        model = whisper.load_model("small")
         trans = model.transcribe(audio_file, language=source_language, verbose=False, word_timestamps=True)
         return trans
     except Exception as e:
@@ -1751,6 +1756,7 @@ def transcribe_audio(audio_file, source_language):
         return None
 
 
+@retry(tries=3, delay=2, backoff=2)
 # Method for translating transcribed text
 def translate_text(chunk, source_language, target_language):
     try:
