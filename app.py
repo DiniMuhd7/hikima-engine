@@ -54,13 +54,13 @@ from flask_oauthlib.client import OAuth
 load_dotenv()
 
 # configs
-FLUTTERWAVE_API_LIVE_SECRET_KEY = os.environ.get("FLUTTERWAVE_API_LIVE_SECRET_KEY")
-FLUTTERWAVE_API_WEBHOOK_SIGNATURE = os.environ.get("FLUTTERWAVE_API_WEBHOOK_SIGNATURE")
-FLUTTERWAVE_API_REDIRECT_URL = os.environ.get("FLUTTERWAVE_API_REDIRECT_URL")
-APP_SECRET_KEY = os.environ.get("APP_SECRET_KEY")
-DATABASE_MAIN_URI = os.environ.get("DATABASE_MAIN_URI")
-GOOGLE_CONSUMER_KEY = os.environ.get("GOOGLE_CONSUMER_KEY")
-GOOGLE_CONSUMER_SECRET = os.environ.get("GOOGLE_CONSUMER_SECRET")
+FLUTTERWAVE_API_LIVE_SECRET_KEY = 'FLWSECK-ee918e0f29b93902dc17bef1abda7d42-18ba9552b35vt-X'
+FLUTTERWAVE_API_WEBHOOK_SIGNATURE = 'ee918e0f29b906efcfbbee16'
+FLUTTERWAVE_API_REDIRECT_URL = 'https://owltape.azurewebsites.net'
+APP_SECRET_KEY = '@\xd6\x01FC#\xf98E\xe0\xff\xb9\xc8\xf4z\xad\x06\xb2"\xfa\xc0\x91\x94\xce'
+DATABASE_MAIN_URI = 'sqlite:///hikima.db'
+GOOGLE_CONSUMER_KEY = '815941416085-1lgmbst4a43gn86pufg3ces27t6qbrdi.apps.googleusercontent.com'
+GOOGLE_CONSUMER_SECRET = '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'
 
 app = Flask(__name__)
 app.secret_key = APP_SECRET_KEY  # Set a secret key for session encryption.
