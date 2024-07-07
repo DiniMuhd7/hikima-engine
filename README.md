@@ -25,7 +25,7 @@ To install this toolkit, clone it onto the machine you want to use it on (should
    ```
    git clone https://github.com/DiniMuhd7/hikima-engine.git
    ```
-2. Set environment variable
+2. Create a virtual environment and activate it
    ```
    python -m venv <path_to_where_you_want_your_env_to_be>
    source <path_to_where_you_want_your_env_to_be>/bin/activate
@@ -37,17 +37,23 @@ To install this toolkit, clone it onto the machine you want to use it on (should
    ```
 Run the second line everytime you start using the tool again to activate the virtual environment again, if you e.g. logged out in the meantime. To make use of a GPU, you don't need to do anything else on a Linux machine. On a Windows machine, have a look at the official PyTorch website for the install-command that enables GPU support.
 
+```
 [optional] eSpeak-NG
+```
 eSpeak-NG is requirement, that handles lots of special cases in many languages, so it's good to have.
 
 On most Linux environments it will be installed already, and if it is not, and you have the sufficient rights, you can install it by simply running
-
+```
 apt-get install espeak-ng
+```
+
 For Windows, they provide a convenient .msi installer file on their GitHub release page. After installation on non-linux systems, you'll also need to tell the phonemizer library where to find your espeak installation by setting the PHONEMIZER_ESPEAK_LIBRARY environment variable, which is discussed in this issue.
 
 For Mac it's unfortunately a lot more complicated. Thanks to Sang Hyun Park, here is a guide for installing it on Mac: For M1 Macs, the most convenient method to install espeak-ng onto your system is via a MacPorts port of espeak-ng. MacPorts itself can be installed from the MacPorts website, which also requires Apple's XCode. Once XCode and MacPorts have been installed, you can install the port of espeak-ng via
-
+```
 sudo port install espeak-ng
+```
+
 As stated in the Windows install instructions, the espeak-ng installation will need to be set as a variable for the phonemizer library. The environment variable is PHONEMIZER_ESPEAK_LIBRARY as given in the GitHub thread linked above. However, the espeak-ng installation file you need to set this variable to is a .dylib file rather than a .dll file on Mac. In order to locate the espeak-ng library file, you can run port contents espeak-ng. The specific file you are looking for is named libespeak-ng.dylib.
 
 
