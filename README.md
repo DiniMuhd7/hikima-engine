@@ -9,6 +9,7 @@ To install this toolkit, clone it onto the machine you want to use it on (should
 ## Prerequisites
 
 - Python 3.8 or higher
+- Flask
 - [FFmpeg](https://ffmpeg.org/download.html)
 
 ## Technologies Used
