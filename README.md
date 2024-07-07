@@ -25,7 +25,7 @@ To install this toolkit, clone it onto the machine you want to use it on (should
    ```
    git clone https://github.com/DiniMuhd7/hikima-engine.git
    ```
-2. Create a virtual environment and activate it
+2. Create a virtual environment and activate it in the project directory
    ```
    python -m venv <path_to_where_you_want_your_env_to_be>
    source <path_to_where_you_want_your_env_to_be>/bin/activate
