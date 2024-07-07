@@ -37,9 +37,7 @@ To install this toolkit, clone it onto the machine you want to use it on (should
    ```
 Run the second line everytime you start using the tool again to activate the virtual environment again, if you e.g. logged out in the meantime. To make use of a GPU, you don't need to do anything else on a Linux machine. On a Windows machine, have a look at the official PyTorch website for the install-command that enables GPU support.
 
-```
-[optional] eSpeak-NG
-```
+## [optional] eSpeak-NG
 eSpeak-NG is requirement, that handles lots of special cases in many languages, so it's good to have.
 
 On most Linux environments it will be installed already, and if it is not, and you have the sufficient rights, you can install it by simply running
