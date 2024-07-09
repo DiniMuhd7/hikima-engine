@@ -32,6 +32,7 @@ To install this toolkit, clone it onto the machine you want to use it on (should
    python -m venv <path_to_where_you_want_your_env_to_be>
    source <path_to_where_you_want_your_env_to_be>/bin/activate
    ```
+Run the second line everytime you start using the tool again to activate the virtual environment again, if you e.g. logged out in the meantime. To make use of a GPU, you don't need to do anything else on a Linux machine. On a Windows machine, have a look at the official PyTorch website for the install-command that enables GPU support.
 
 3. Install the required Python packages:
    ```
@@ -44,8 +45,6 @@ To install this toolkit, clone it onto the machine you want to use it on (should
    mkdir monotonic_align
    python3 setup.py build_ext --inplace
     ```
-
-Run the second line everytime you start using the tool again to activate the virtual environment again, if you e.g. logged out in the meantime. To make use of a GPU, you don't need to do anything else on a Linux machine. On a Windows machine, have a look at the official PyTorch website for the install-command that enables GPU support.
 
 ## [optional] eSpeak-NG
 eSpeak-NG is requirement, that handles lots of special cases in many languages, so it's good to have.
