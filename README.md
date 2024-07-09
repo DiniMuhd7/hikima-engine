@@ -26,6 +26,7 @@ To install this toolkit, clone it onto the machine you want to use it on (should
    ```
    git clone https://github.com/DiniMuhd7/hikima-engine.git
    ```
+   
 2. Create a virtual environment and activate it in the project directory
    ```
    python -m venv <path_to_where_you_want_your_env_to_be>
@@ -36,6 +37,15 @@ To install this toolkit, clone it onto the machine you want to use it on (should
    ```
    pip install -r requirements.txt
    ```
+
+4. Monotonic align setup 
+    ```
+   import os
+   os.chdir('/hikima-engine/vits/monotonic_align')
+   mkdir monotonic_align
+   python3 setup.py build_ext --inplace
+    ```
+
 Run the second line everytime you start using the tool again to activate the virtual environment again, if you e.g. logged out in the meantime. To make use of a GPU, you don't need to do anything else on a Linux machine. On a Windows machine, have a look at the official PyTorch website for the install-command that enables GPU support.
 
 ## [optional] eSpeak-NG
