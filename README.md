@@ -40,8 +40,7 @@ To install this toolkit, clone it onto the machine you want to use it on (should
 
 4. Monotonic align setup 
     ```
-   import os
-   os.chdir('/hikima-engine/vits/monotonic_align')
+   cd hikima-engine/vits/monotonic_align
    mkdir monotonic_align
    python3 setup.py build_ext --inplace
     ```
